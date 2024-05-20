@@ -237,14 +237,14 @@ dropRight2(L, nil):- size(L, SL), SL = s(s(zero)).
 %examples:
 %dropRight(cons(a, cons(b, cons(c, nil))), s(zero), cons(a, cons(b, nil))). -> yes
 dropRight(cons(H, T), N, cons(H, T2)) :- size(T, ST), greater_equal(ST,N), dropRight(T, N, T2).
-dropRight(L, N, nil):- size(L, SL), SL = N.
+dropRight(L, N, nil):- size(L, N).
 
 %Ex 5.7
 %dropWhile0(@ListIn, -ListOut)
 %examples:
 %dropWhile0(cons(s(zero), cons(zero, cons(zero, cons(s(s(s(zero))), nil)))), cons(zero, cons(s(s(s(zero))), nil))). -> yes
 dropWhile0(cons(H, T), L) :- greater(H, zero), dropWhile0(T, L).
-dropWhile0(cons(H, T), T) :- H = zero.
+dropWhile0(cons(zero, T), T).
 %dropWhile(@ListIn, ?N, ?ListOut)
 %examples:
 %dropWhile(cons(s(s(zero)), cons(s(zero), cons(zero, cons(s(s(s(zero))), nil)))), zero, cons(zero, cons(s(s(s(zero))), nil))) -> yes
@@ -256,9 +256,8 @@ dropWhile(cons(H, T), N, cons(H, T)) :- greater_equal(N, H).
 %puts the elements greater than 0 in ListYes and the others in ListNo
 %examples:
 %partition0(cons(zero, cons(s(s(zero)), cons(s(zero), cons(zero, nil)))), cons(s(s(zero)), cons(s(zero), nil)), cons(zero, cons(zero, nil))). -> yes
-%littlebug non showa zero quando prende l'elem max 
 partition0(nil, nil, nil).
-partition0(cons(H, T), L1, cons(H, L2)) :- H = zero, partition0(T, L1, L2).
+partition0(cons(zero, T), L1, cons(zero, L2)) :- partition0(T, L1, L2).
 partition0(cons(H, T), cons(H, L1), L2) :- greater(H, zero), partition0(T, L1, L2).
 %partition(?ListIn, ?N, ?ListYes, ?ListNo)
 %puts the elements greater than N in ListYes and the others in ListNo
